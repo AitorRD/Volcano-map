@@ -1,3 +1,4 @@
+
 <template>
     <form @submit.prevent="login">
       <input type="text" v-model="username" placeholder="Nombre de usuario">
@@ -5,11 +6,10 @@
       <button type="submit">Iniciar sesión</button>
     </form>
   </template>
-  
-  <script>
- import axios from 'axios';
 
-  export default {
+  <script>
+  /* eslint-disable */
+  export default { 
     data() {
       return {
         username: '',
