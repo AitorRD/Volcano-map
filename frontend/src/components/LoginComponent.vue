@@ -1,4 +1,3 @@
-
 <template>
     <form @submit.prevent="login">
       <input type="text" v-model="username" placeholder="Nombre de usuario">
