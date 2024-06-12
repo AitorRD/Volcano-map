@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from rest_framework import generics
+from .models import Volcano
+from .serializers import VolcanoSerializer
 
 def login_view(request):
     if request.method == 'POST':
@@ -14,3 +17,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirige a la página de inicio de sesión después del cierre de sesión
+
+class VolcanoListView(generics.ListAPIView):
+    queryset = Volcano.objects.all()
+    serializer_class = VolcanoSerializer
