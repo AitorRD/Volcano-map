@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(z&pw5w@(b@4a(k)w0m*+v2=hj3@w^hpal(pl41iauu85bp30=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['volcano-map.onrender.com', 'localhost']
 
 
 # Application definition
@@ -71,6 +71,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
+    'http://volcano-map-frontend.onrender.com'
 ]
 
 CORS_ALLOW_HEADERS = [

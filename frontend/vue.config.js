@@ -5,7 +5,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8000', // Reemplaza con la URL de tu servidor Django
+        target: 'http://volcano-map-frontend.onrender.com', // Reemplaza con la URL de tu servidor Django
         changeOrigin: true,
         pathRewrite: { '^/api': '' },
       },
