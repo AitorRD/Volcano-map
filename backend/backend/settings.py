@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'myapp',
     'corsheaders',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,28 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PERMISSION_CLASSES_BY_VIEW': {
+        'myapp.views.VolcanoListView': [
+            'rest_framework.permissions.AllowAny',
+        ],
+    },
+}
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+]
+
+DJOSER = {
+    'USER_ID_FIELD': 'username',
+}
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -73,9 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-]
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

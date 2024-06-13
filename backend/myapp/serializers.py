@@ -4,4 +4,4 @@ from .models import Volcano
 class VolcanoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Volcano
-        fields = ['name', 'location', 'country', 'latitude', 'longitude', 'height', 'eruption_time']
+        fields = ['id','name', 'location', 'country', 'latitude', 'longitude', 'height', 'eruption_time']

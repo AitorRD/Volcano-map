@@ -1,12 +1,19 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
+import MapView from '../views/MapView.vue';
+import LoginView from '../views/LoginView.vue';
+import RegisterView from '../views/RegisterView.vue';
+import UserProfileView from '../views/UserProfileView.vue';
+import VolcanoDetailsView from '../views/VolcanoDetailsView.vue';
 
 const routes = [
-  { path: "/", component: () => import('./views/MapView.vue') }, // Ruta para la página de inicio
-  { path: "/map", component: () => import('./components/MapComponent.vue') }, // Ruta para el MapComponent
-  { path: "/login", component: () => import('./components/LoginComponent.vue') }, // Ruta para el LoginComponent
+  { path: '/', component: MapView },
+  { path: '/login', component: LoginView },
+  { path: '/register', component: RegisterView },
+  { path: '/profile', component: UserProfileView },
+  { path: '/volcano/:id', component: VolcanoDetailsView },
 ];
 
-const history = createWebHashHistory();
+const history = createWebHistory();
 
 const router = createRouter({
   history,

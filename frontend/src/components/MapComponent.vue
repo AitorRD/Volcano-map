@@ -9,13 +9,19 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import markerIcon from '@/assets/volcan.png';
-import eruptionMarkerIcon from '@/assets/volcan_eruption.png'; // Asegúrate de que la ruta sea correcta
+import eruptionMarkerIcon from '@/assets/volcan_eruption.png';
 
 export default {
   name: 'MapComponent',
-  mounted() {
+  data() {
+    return {
+      map: null,
+      volcanoes: []
+    };
+  },
+  async mounted() {
     this.initMap();
-    this.loadVolcanoes();
+    await this.loadVolcanoes();
   },
   methods: {
     initMap() {
@@ -27,23 +33,40 @@ export default {
     async loadVolcanoes() {
       try {
         const response = await axios.get('/api/volcanoes/');
-        const volcanoes = response.data;
-        
-        volcanoes.forEach(volcano => {
-              const customIcon = this.getMarkerIcon(volcano.eruption_time);
-              L.marker([volcano.latitude, volcano.longitude], { icon: customIcon })
-                .addTo(this.map)
-                .bindPopup(`
-                  <b>${volcano.name}</b><br>
-                  Location: ${volcano.location}<br>
-                  Country: ${volcano.country}<br>
-                  Height: ${volcano.height} meters<br>
-                  Next Eruption: ${this.formatTimeToEruption(volcano.eruption_time)}
-                `);
-            });
+        this.volcanoes = response.data;
+
+        this.volcanoes.forEach(volcano => {
+          const customIcon = this.getMarkerIcon(volcano.eruption_time);
+          const marker = L.marker([volcano.latitude, volcano.longitude], { icon: customIcon });
+
+          marker.bindTooltip(this.createPopupContent(volcano, volcano.id), {
+            direction: 'top',
+            offset: [0, -20]
+          });
+
+          marker.on('click', () => this.onMarkerClick(volcano.id));
+
+          marker.addTo(this.map);
+        });
       } catch (error) {
         console.error('Error loading volcanoes:', error);
       }
+    },
+    onMarkerClick(volcanoId) {
+      this.$router.push(`/volcano/${volcanoId}`);
+    },
+    createPopupContent(volcano) {
+      let popupContent = `
+        <b>${volcano.name}</b><br>
+        Location: ${volcano.location}<br>
+        Country: ${volcano.country}<br>
+        Height: ${volcano.height} meters<br>
+        Next Eruption: ${this.formatTimeToEruption(volcano.eruption_time)}
+      `;
+      return popupContent;
+    },
+    viewVolcanoDetails(volcanoId) {
+      this.$router.push(`/volcano/${volcanoId}`);
     },
     formatTimeToEruption(timeInSeconds) {
       const secondsInMinute = 60;
@@ -68,9 +91,9 @@ export default {
       return `${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     },
     getMarkerIcon(timeInSeconds) {
-      const secondsInYear = 31536000; 
+      const secondsInMonth = 30 * 24 * 60 * 60; // Un mes en segundos
 
-      if (timeInSeconds < secondsInYear) {
+      if (timeInSeconds < secondsInMonth) {
         return L.icon({
           iconUrl: eruptionMarkerIcon,
           iconSize: [32, 32], 
@@ -85,8 +108,15 @@ export default {
         iconAnchor: [16, 32], 
         popupAnchor: [0, -32] 
       });
+    },
+  beforeDestroy() {
+    // Limpiar el mapa y los recursos relacionados al desmontar el componente
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
     }
   }
+}
 }
 </script>
 
@@ -100,3 +130,4 @@ export default {
   height: 100%;
 }
 </style>
+

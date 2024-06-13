@@ -1,28 +1,38 @@
 <template>
+  <div>
+    <h2>Login</h2>
     <form @submit.prevent="login">
-      <input type="text" v-model="username" placeholder="Nombre de usuario">
-      <input type="password" v-model="password" placeholder="Contraseña">
-      <button type="submit">Iniciar sesión</button>
+      <input v-model="username" placeholder="Username" required />
+      <input v-model="password" placeholder="Password" type="password" required />
+      <button type="submit">Login</button>
     </form>
-  </template>
+  </div>
+</template>
 
-  <script>
-  /* eslint-disable */
-  export default { 
-    data() {
-      return {
-        username: '',
-        password: ''
-      }
-    },
-    methods: {
-      login() {
-        axios.post('/login/', { username: this.username, password: this.password })
-          .then(response => {
-          })
-          .catch(error => {
-          });
-      }
-    }
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const username = ref('');
+const password = ref('');
+
+const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/auth/token/login/', {
+      username: username.value,
+      password: password.value
+    });
+    const token = response.data.auth_token;
+    localStorage.setItem('auth_token', token);
+    console.log('User logged in:', token);
+    alert('Login successful!'); // Mensaje de éxito usando alert
+    router.push('/'); // Redirigir al mapa u otra página principal
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Login failed. Please check your credentials.'); // Mensaje de error usando alert
   }
-  </script>
+};
+</script>
