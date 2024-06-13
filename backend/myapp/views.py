@@ -36,6 +36,7 @@ class VolcanoListView(generics.ListAPIView):
 class VolcanoDetailView(generics.RetrieveAPIView):
     queryset = Volcano.objects.all()
     serializer_class = VolcanoSerializer
+    permission_classes = [AllowAny]
     lookup_url_kwarg = 'id'  # Este es el nombre del parámetro en la URL, por ejemplo, /api/volcanoes/1/
 
     def retrieve(self, request, *args, **kwargs):

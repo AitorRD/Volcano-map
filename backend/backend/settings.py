@@ -70,7 +70,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'https://volcano-map-frontend.onrender.com'
+    'https://volcano-map-frontend.onrender.com',
+    'http://localhost:8080'
 ]
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_HEADERS = [
