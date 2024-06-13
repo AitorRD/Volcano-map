@@ -1,1 +1,0 @@
-web: gunicorn volcano_map.wsgi --log-file -
