@@ -21,7 +21,6 @@ export default {
   },
   async mounted() {
     this.initMap();
-    await this.loadVolcanoes();
   },
   methods: {
     initMap() {
@@ -29,6 +28,11 @@ export default {
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
+
+      // Espera a que el mapa esté completamente cargado antes de hacer cualquier otra cosa
+      this.map.whenReady(() => {
+        this.loadVolcanoes();
+      });
     },
     async loadVolcanoes() {
       try {
@@ -64,9 +68,6 @@ export default {
         Next Eruption: ${this.formatTimeToEruption(volcano.eruption_time)}
       `;
       return popupContent;
-    },
-    viewVolcanoDetails(volcanoId) {
-      this.$router.push(`/volcano/${volcanoId}`);
     },
     formatTimeToEruption(timeInSeconds) {
       const secondsInMinute = 60;
@@ -108,16 +109,16 @@ export default {
         iconAnchor: [16, 32], 
         popupAnchor: [0, -32] 
       });
-    },
-  beforeDestroy() {
+    }
+  },
+  beforeUnmount() {
     // Limpiar el mapa y los recursos relacionados al desmontar el componente
     if (this.map) {
       this.map.remove();
       this.map = null;
     }
   }
-}
-}
+};
 </script>
 
 <style scoped>
@@ -130,4 +131,3 @@ export default {
   height: 100%;
 }
 </style>
-

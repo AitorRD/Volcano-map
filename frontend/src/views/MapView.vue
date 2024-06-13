@@ -9,17 +9,19 @@
     <button v-if="!isLoggedIn" @click="goToLogin">Go to Login</button>
 
     <h1>Welcome to Map View</h1>
-    <MapComponent />
+    <!--<VolcanoSearch />-->
+     <MapComponent /> 
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
-import MapComponent from '../components/MapComponent.vue'; // Importar el componente MapComponent
+import MapComponent from '../components/MapComponent.vue';
+//import VolcanoSearch from '../components/VolcanoSearch.vue'
 
 const router = useRouter();
-const isLoggedIn = ref(false); // Variable para verificar si el usuario está autenticado
+const isLoggedIn = ref(false);
 
 const goToRegister = () => {
   router.push('/register');
