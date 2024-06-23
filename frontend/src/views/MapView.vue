@@ -18,7 +18,7 @@ import HeaderComponent from '../components/HeaderComponent.vue';
 html, body, #map-view {
   height: 100%;
   margin: 0;
-  background: linear-gradient(to top, #1a1112, #7a4530);
+  background: linear-gradient(to top, #7a4530, #060404);
   background-attachment: fixed;
   background-size: cover;
   display: flex;
@@ -34,6 +34,7 @@ html, body, #map-view {
 
 .header {
   flex: 0 0 10%; /* El encabezado ocupa el 10% de la altura visible */
+  width: 100%;
 }
 
 .main-content {
@@ -43,6 +44,8 @@ html, body, #map-view {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .header, .main-content {
@@ -55,12 +58,5 @@ html, body, #map-view {
   color: white;
 }
 
-/* Margen del 5% a la izquierda y derecha */
-@media screen and (min-width: 768px) {
-  html, body, #map-view {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-}
 </style>
 

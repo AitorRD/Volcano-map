@@ -130,8 +130,14 @@ export default {
 
 <style scoped>
 .map-container {
-  height: 100%;
-  width: 100%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 90%;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+  border-radius: 10px; /* Bordes suaves */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un aspecto más suave */
+  padding: 1rem;
 }
 
 .map {

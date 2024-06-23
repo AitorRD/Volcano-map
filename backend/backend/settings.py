@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(z&pw5w@(b@4a(k)w0m*+v2=hj3@w^hpal(pl41iauu85bp30=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['volcano-map.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['volcano-map.onrender.com', '127.0.0.1']
 
 
 # Application definition
