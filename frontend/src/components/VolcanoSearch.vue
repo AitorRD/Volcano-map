@@ -22,7 +22,7 @@
         }
   
         try {
-          const response = await axios.get('http://localhost:8000/api/volcanoes/search', {
+          const response = await axios.get('api/volcanoes/search', {
             params: { search: this.searchQuery }
           });
           const volcanoes = response.data;

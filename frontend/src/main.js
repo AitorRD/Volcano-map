@@ -3,7 +3,7 @@ import App from './App.vue';
 import axios from 'axios';
 import router from './router';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 const token = localStorage.getItem('auth_token');
 if (token) {
