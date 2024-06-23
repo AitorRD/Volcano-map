@@ -21,7 +21,6 @@ export default {
   },
   async mounted() {
     this.initMap();
-    window.addEventListener('resize', this.resizeMap);
   },
   methods: {
     initMap() {
@@ -110,11 +109,6 @@ export default {
         iconAnchor: [16, 32], 
         popupAnchor: [0, -32] 
       });
-    },
-    resizeMap() {
-      if (this.map) {
-        this.map.invalidateSize();
-      }
     }
   },
   beforeUnmount() {
@@ -123,11 +117,9 @@ export default {
       this.map.remove();
       this.map = null;
     }
-    window.removeEventListener('resize', this.resizeMap);
   }
 };
 </script>
-
 <style scoped>
 .map-container {
   width: 90%;
