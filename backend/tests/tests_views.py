@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
 from myapp.models import Volcano
-
+from rest_framework.test import APIClient
 class VolcanoListViewTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -22,3 +22,25 @@ class VolcanoListViewTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], 'Volcano 1')
+
+class VolcanoDetailViewNotFoundTest(TestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_volcano_detail_not_found(self):
+        volcano = Volcano.objects.create(
+            name='Test Volcano',
+            location='Test Location',
+            country='Test Country',
+            latitude='0',
+            longitude='0',
+            height=1000.0,
+            eruption_time=0.0
+        )
+
+        url = reverse('volcano-detail', kwargs={'id': volcano.id + 8937321832})  # Suponemos que el ID no existe
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
