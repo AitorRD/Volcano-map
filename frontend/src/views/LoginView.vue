@@ -1,5 +1,6 @@
 <template>
     <div>
+      <h1>Login Page</h1>
       <LoginComponent />
       <button @click="goToRegister">Register Here</button>
     </div>

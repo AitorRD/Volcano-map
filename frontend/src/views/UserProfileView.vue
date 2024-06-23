@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>Profile Details</h1>
+      <h1>Profile Page</h1>
       <UserProfileComponent />
     </div>
     <div>

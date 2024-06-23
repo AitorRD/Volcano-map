@@ -1,6 +1,5 @@
 <template>
   <div class="volcano-details" v-if="volcano">
-    <h2>Volcano Details</h2>
     <p><strong>Name:</strong> {{ volcano.name }}</p>
     <p><strong>Location:</strong> {{ volcano.location }}</p>
     <p><strong>Country:</strong> {{ volcano.country }}</p>

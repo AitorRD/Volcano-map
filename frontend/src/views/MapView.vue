@@ -1,53 +1,66 @@
 <template>
-  <div>
-    <!-- Mostrar solo si el usuario está autenticado -->
-    <button v-if="isLoggedIn" @click="goToProfile">Profile</button>
-    <button v-if="isLoggedIn" @click="logout">Logout</button>
-
-    <!-- Mostrar solo si el usuario NO está autenticado -->
-    <button v-if="!isLoggedIn" @click="goToRegister">Register</button>
-    <button v-if="!isLoggedIn" @click="goToLogin">Go to Login</button>
-
-    <h1>Welcome to Map View</h1>
-    <!--<VolcanoSearch />-->
-     <MapComponent /> 
+  <div id="map-view">
+    <HeaderComponent />
+    <main class="main-content">
+      <MapComponent />
+    </main>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
 import MapComponent from '../components/MapComponent.vue';
+import HeaderComponent from '../components/HeaderComponent.vue';
 //import VolcanoSearch from '../components/VolcanoSearch.vue'
 
-const router = useRouter();
-const isLoggedIn = ref(false);
-
-const goToRegister = () => {
-  router.push('/register');
-};
-
-const goToLogin = () => {
-  router.push('/login');
-};
-
-const goToProfile = () => {
-  router.push('/profile');
-};
-
-const logout = () => {
-  localStorage.removeItem('auth_token'); // Limpiar el token de autenticación
-  window.location.reload(); // Actualizar la página después de hacer logout
-};
-
-// Verificar si el usuario está autenticado al cargar el componente
-onMounted(() => {
-  const token = localStorage.getItem('auth_token');
-  isLoggedIn.value = !!token; // Asignar true si hay token, false si no lo hay
-});
 </script>
 
 <style scoped>
-/* Estilos específicos para este componente si es necesario */
+html, body, #map-view {
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(to top, #1a1112, #7a4530);
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* Para ocultar la barra de desplazamiento horizontal */
+}
+
+#map-view {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header {
+  flex: 0 0 10%; /* El encabezado ocupa el 10% de la altura visible */
+}
+
+.main-content {
+  flex: 1 1 90%; /* El contenido principal ocupa el 90% restante de la altura */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header, .main-content {
+  width: 100%;
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Margen del 5% a la izquierda y derecha */
+@media screen and (min-width: 768px) {
+  html, body, #map-view {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
 </style>
 
