@@ -1,0 +1,8 @@
+[run]
+source = .
+omit =
+    */site-packages/*
+    manage.py
+    */wsgi.py
+    */settings.py
+    */migrations/*
